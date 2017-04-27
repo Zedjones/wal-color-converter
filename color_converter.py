@@ -30,9 +30,48 @@ for i in range(0, 16):
     #now we have rgb for this color, so we set it in the dict
     colors[i] = rgblist
 
-colorprofile = open("walprofile.colorscheme", 'a')
+#write background info
+colorprofile = open("walprofile.colorscheme", 'w')
+colorprofile.write("[Background]\n")
+colorprofile.write("Color=" + colors[0][0] + "," + colors[0][1] + "," + colors[0][2])
+colorprofile.write("\n\n")
+
+#background intense is same
+colorprofile.write("[BackgroundIntense]\n")
+colorprofile.write("Color=" + colors[0][0] + "," + colors[0][1] + "," + colors[0][2])
+colorprofile.write("\n\n")
+
+#loop for the colors
+for i in range(0, 8, 1):
+    colorprofile.write("[Color" + str(i) + "]\n")
+    colorprofile.write("Color=" + colors[i+1][0] + "," + colors[i+1][1] + "," +
+        colors[i+1][2])
+    colorprofile.write("\n\n")
+
+    colorprofile.write("[Color" + str(i) + "Intense]\n")
+    colorprofile.write("Color=" + colors[i+1][0] + "," + colors[i+1][1] + "," +
+    colors[i+1][2])
+    colorprofile.write("\n\n")
+
+
+colorprofile.write("[Foreground]\n")
+colorprofile.write("Color=" + colors[15][0] + "," + colors[15][1] + "," +
+    colors[15][2])
+colorprofile.write("\n\n")
+
+colorprofile.write("[ForegroundIntense]\n")
+colorprofile.write("Bold=true\n")
+colorprofile.write("Color=" + colors[15][0] + "," + colors[15][1] + "," +
+    colors[15][2])
+colorprofile.write("\n\n")
+
+colorprofile.write("[General]\n")
+colorprofile.write("Description=walprofile\n")
+colorprofile.write("Opacity=1\n")
+
+os.system("sudo mv walprofile.colorscheme /usr/share/konsole")
 
 #TODO later, this will set the actual profile
-#os.system("konsoleprofile colors=" + profilename)
+os.system("konsoleprofile colors=walprofile")
     
 
