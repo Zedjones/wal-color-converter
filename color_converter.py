@@ -43,14 +43,35 @@ colorprofile.write("\n\n")
 
 #loop for the colors
 for i in range(0, 8, 1):
+ 
     colorprofile.write("[Color" + str(i) + "]\n")
-    colorprofile.write("Color=" + colors[i+1][0] + "," + colors[i+1][1] + "," +
-        colors[i+1][2])
+    if i == 2:
+        print(str(i+1) + ":")
+        print(colors[4])
+        colorprofile.write("Color=" + colors[4][0] + "," + colors[4][1] + "," +
+            colors[4][2])
+    elif i == 3:
+        print(str(i+1) + ":")
+        print(colors[3])
+        colorprofile.write("Color=" + colors[3][0] + "," + colors[3][1] + "," +
+            colors[3][2])
+    else:
+        colorprofile.write("Color=" + colors[i+1][0] + "," + colors[i+1][1] + "," +
+            colors[i+1][2])
     colorprofile.write("\n\n")
 
     colorprofile.write("[Color" + str(i) + "Intense]\n")
-    colorprofile.write("Color=" + colors[i+1][0] + "," + colors[i+1][1] + "," +
-    colors[i+1][2])
+
+    if i == 2:
+        colorprofile.write("Color=" + colors[4][0] + "," + colors[4][1] + "," +
+            colors[4][2])
+    elif i == 3:
+        colorprofile.write("Color=" + colors[3][0] + "," + colors[3][1] + "," +
+            colors[3][2])
+    else:
+        colorprofile.write("Color=" + colors[i+1][0] + "," + colors[i+1][1] + "," +
+            colors[i+1][2])
+    
     colorprofile.write("\n\n")
 
 
@@ -69,7 +90,11 @@ colorprofile.write("[General]\n")
 colorprofile.write("Description=walprofile\n")
 colorprofile.write("Opacity=1\n")
 
-os.system("sudo mv walprofile.colorscheme /usr/share/konsole")
+colorprofile.close()
+
+#TODO change this so that it goes to an alternative names
+#if file already exists
+os.system("sudo cp walprofile.colorscheme /usr/share/konsole")
 
 #TODO later, this will set the actual profile
 os.system("konsoleprofile colors=walprofile")
