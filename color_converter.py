@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 from os.path import expanduser
 import subprocess
@@ -135,6 +137,23 @@ if 'wal' in allfiles:
 
 #move the new profile to the proper location
 os.system("sudo mv " + newfile + ".colorscheme  /usr/share/konsole")
+
+#get rid of weird leftover profiles
+allfiles = subprocess.run(['ls'], stdout=subprocess.PIPE)
+#decode this from stdout to utf-8
+allfiles = allfiles.stdout.decode('utf-8')
+
+#if there is already a wal profile in this 
+if 'walprofile' in allfiles:
+    #split the string into a list by lines
+    lines = allfiles.splitlines()
+    #iterate through the list
+    for filename in lines:
+            #if wal is in the item in the list
+            if 'wal' in filename:
+                #remove that item from the folder
+                os.system("sudo rm " + filename)
+
 
 #set the profile as active
 os.system("konsoleprofile colors=" + newfile)
