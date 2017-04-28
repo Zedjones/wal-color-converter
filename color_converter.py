@@ -5,10 +5,12 @@ from os.path import expanduser
 import subprocess
 import re
 import random
+import getpass
 
 #get user home path
-homepath = expanduser("~")
+homepath = "/home/"+ os.getlogin()
 #get wal file for colors
+print(homepath + '/.cache/wal/colors')
 walfile = open(homepath + '/.cache/wal/colors');
 
 #create new colors dictionary
@@ -18,6 +20,7 @@ colors = {}
 for i in range(0, 16):
     #get the hex for the color 
     line = walfile.readline()[1:].strip()
+    print(line)
     #use color-convert to convert it to RGB
     temp = subprocess.run(['color-converter', line], stdout=subprocess.PIPE)
     #decode it into utf-8
@@ -50,6 +53,9 @@ for i in range(0, 16):
         temp = colors[7]
         colors[7] = colors[6]
         colors[6] = temp
+
+#close walfile after reading
+walfile.close()
 
 #more clusterfuckery
 temp = colors[3]
