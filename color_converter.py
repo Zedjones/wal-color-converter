@@ -6,11 +6,13 @@ import subprocess
 import re
 import random
 import getpass
+import pwd
 
 #get user home path
-homepath = "/home/"+ os.getlogin()
+homepath = expanduser("~")
+if(homepath == "/root/"):
+    homepath = "/home/"+ os.getlogin()
 #get wal file for colors
-print(homepath + '/.cache/wal/colors')
 walfile = open(homepath + '/.cache/wal/colors');
 
 #create new colors dictionary
@@ -20,7 +22,6 @@ colors = {}
 for i in range(0, 16):
     #get the hex for the color 
     line = walfile.readline()[1:].strip()
-    print(line)
     #use color-convert to convert it to RGB
     temp = subprocess.run(['color-converter', line], stdout=subprocess.PIPE)
     #decode it into utf-8
@@ -163,5 +164,4 @@ if 'walprofile' in allfiles:
 
 #set the profile as active
 os.system("konsoleprofile colors=" + newfile)
-    
 
