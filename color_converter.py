@@ -2,6 +2,7 @@ import os
 from os.path import expanduser
 import subprocess
 import re
+import random
 
 #get user home path
 homepath = expanduser("~")
@@ -31,7 +32,10 @@ for i in range(0, 16):
     colors[i] = rgblist
 
 #write background info
-colorprofile = open("walprofile.colorscheme", 'w')
+newfile = "walprofile" + str(random.random())[2:]
+colorprofile = open(newfile + ".colorscheme", 'w')
+
+
 colorprofile.write("[Background]\n")
 colorprofile.write("Color=" + colors[0][0] + "," + colors[0][1] + "," + colors[0][2])
 colorprofile.write("\n\n")
@@ -94,9 +98,19 @@ colorprofile.close()
 
 #TODO change this so that it goes to an alternative names
 #if file already exists
-os.system("sudo cp walprofile.colorscheme /usr/share/konsole")
+
+allfiles = subprocess.run(['ls', '/usr/share/konsole'], stdout=subprocess.PIPE)
+allfiles = allfiles.stdout.decode('utf-8')
+
+if 'wal' in allfiles:
+    lines = allfiles.splitlines()
+    for filename in lines:
+            if 'wal' in filename:
+                os.system("sudo rm /usr/share/konsole/" + filename)
+
+os.system("sudo mv " + newfile + ".colorscheme  /usr/share/konsole")
 
 #TODO later, this will set the actual profile
-os.system("konsoleprofile colors=walprofile")
+os.system("konsoleprofile colors=" + newfile)
     
 
