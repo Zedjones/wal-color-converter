@@ -1,5 +1,5 @@
 # wal-color-converter
-A small utility to convert a wal color scheme into a Konsole profile and to set that profile as the active profile
+A small utility to convert a [wal](https://github.com/dylanaraps/wal) color scheme into a Konsole profile and to set that profile as the active profile
 
 Now working, and requires [Majjoha's color-converter](https://github.com/majjoha/color-converter) as a dependency.
 Might eventually expand this to work with other terminal emulators, but I'm starting small for now.
